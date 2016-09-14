@@ -1,0 +1,40 @@
+Originally based upon http://nbviewer.jupyter.org/github/tfolkman/learningwithdata/blob/master/Logistic%20Gradient%20Descent.ipynb
+
+Derivation of a logistic regression:
+
+Let's assume we are working with the famous iris dataset. Our two X variables are 1) Sepal Length and 2) Sepal Width.
+
+The equation for a logistic regression starts with a sigmoid function, which can be coded as 1 / (1+math.e(-x)). This will produce a set
+of y(x) values that range from 0 to 1. At x = 0, y(x) will equal exactly 0.5.
+
+The input (x) can be defined as a linear combination:
+
+x(sepal_width, sepal_length) = beta_0 + beta_1 * sepal_width + beta_2 * sepal_length
+
+x = input value for sigmoid function
+beta_0 = our "intercept" or bias
+beta_1 = coefficient for sepal width
+beta_2 = coefficient for sepal length
+
+The maximum likelihood probability for setosa class is:
+
+for x in range(len(dataset)):
+  h(x) = 1/ (1+ math.e**-(beta_0 + beta_1 * sepal_width(x) + beta_2 * sepal_length(x)))
+
+Since the only other class in question here is versicolor, the maximum likelihood probability for setosa class is:
+for x in range(len(dataset)):
+  i(x) = [1- 1/ (1+ math.e**-(beta_0 + beta_1 * sepal_width(x) + beta_2 * sepal_length(x)))]
+  
+Written more simply, it is probability(versicolor) = 1-h(x).
+
+Our expression that we are trying to maximize, therefore is h(x) * [1- h(x)]. This represents the combination of parameters (beta_0,
+beta_1, beta_2) that maximize the likelihood of each sample being setosa or versicolor. Moreover, maximizing the positive expression is
+the same as minimizing the negative function, and for the sake of our gradient descent algorithm, we will be using a minimization function
+to find out when our derivative approaches 0.
+
+Before we move on to the next section of the walkthrough, an important concept to understand is the behavior of products and logs. 
+
+
+
+For our logistic regression, it is important to understand that a product can be converted into sums by taking the log 
+
